@@ -32,15 +32,19 @@
 //   }
 // export {AppProvider}
 
-import React, {useState,useReducer,useContext} from 'react'
+import React, {useState,useReducer,useContext,registerUser} from 'react'
 import reducer from './reducer'
-import {CLEAR_ALERT, DISPLAY_ALERT} from './actions'
+
+import {DISPLAY_ALERT,CLEAR_ALERT,REGISTER_USER_BEGIN,REGISTER_USER_SUCCESS,REGISTER_USER_ERROR} from './actions'
 import { clear } from '@testing-library/user-event/dist/clear'
 const initialState={
 isLoading:false,
 showAlert:false,
 alertText:'',
-alertType:''
+alertType:'',
+user:null,
+taken:null,
+userLocation:''
 }
 
 const AppContext=React.createContext()
@@ -59,8 +63,12 @@ const AppProvider=({children})=>{
       },3000)
     }
 
+    const registerUser=async (currentUser)=>{
+      console.log(currentUser)
+    }
+
     return (
-        <AppContext.Provider value={{ ...state,displayAlert }}>
+        <AppContext.Provider value={{ ...state,displayAlert,registerUser}}>
           {children}
         </AppContext.Provider>
       )
@@ -69,4 +77,4 @@ const AppProvider=({children})=>{
 const useAppContext = () => {
     return useContext(AppContext)
   }
-  export  { AppProvider,initialState,useAppContext};
+  export  { AppProvider,initialState,useAppContext,registerUser};

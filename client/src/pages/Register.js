@@ -14,7 +14,7 @@ function Register() {
   
 const [values,setValues]=useState(initialState);
 //setting global contex & navigator
-const { isLoading, showAlert,displayAlert } = useAppContext()
+const { isLoading, showAlert,displayAlert,registerUser} = useAppContext()
 const toggleMember=()=>{
   setValues({...values,isMember:!values.isMember})
 }
@@ -28,6 +28,14 @@ const onSubmit = (e) => {
   if (!email || !password || (!isMember && !name)) {
     displayAlert();
     return;
+  }
+  //if not empty then set up user 
+  const currentUser={name,email,password}
+  if(isMember)
+  {
+   console.log('already a member'); 
+  }else{
+    registerUser(currentUser)
   }
   console.log(values)
 }
@@ -58,7 +66,7 @@ const onSubmit = (e) => {
         value={values.password}
         handleChange={handleChange}
         />
-          <button type='submit' className='btn btn-block' >
+          <button type='submit' className='btn btn-block' disabled={isLoading}>
           submit
         </button>
         <p>
