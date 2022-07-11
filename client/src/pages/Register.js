@@ -29,7 +29,7 @@ const onSubmit = (e) => {
     displayAlert();
     return;
   }
-  //if not empty then set up user 
+  //if not empty then set up User
   const currentUser={name,email,password}
   if(isMember)
   {
